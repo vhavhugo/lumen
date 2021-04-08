@@ -24,7 +24,7 @@ class SeriesController
 
     public function show(int $id)
     {
-        
+
         $serie = Serie::find($id);
         if (is_null($serie)) {
             //204 = Não tem conteúdo
@@ -33,9 +33,10 @@ class SeriesController
         return response()->json($serie, 200);
     }
 
-    public function update(int $id, Request $request){
+    public function update(int $id, Request $request)
+    {
         $serie = Serie::find($id);
-        if(is_null($serie)){
+        if (is_null($serie)) {
             return response()->json([
                 'erro' => 'Recurso não encontrado'
             ], 404);
@@ -43,5 +44,16 @@ class SeriesController
         $serie->fill($request->all());
         $serie->save();
         return $serie;
+    }
+
+    public function destroy(int $id)
+    {
+        $qtdRecursosRemovidos = Serie::destroy($id);
+        if ($qtdRecursosRemovidos === 0) {
+            return response()->json([
+                'erro' => 'Recurso não encontrado'
+            ], 404);
+        }
+        return response()->json('', 204);
     }
 }
