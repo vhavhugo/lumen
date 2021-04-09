@@ -3,57 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Serie;
-use Illuminate\Http\Request;
 
-class SeriesController
+class SeriesController extends BaseController
 {
-    public function index()
+    public function __construct()
     {
-        return Serie::all();
-    }
-
-    public function store(Request $request)
-    {
-        //201 = é de creação de conteúdo
-        return response()
-            ->json(
-                Serie::create($request->all()),
-                201
-            );
-    }
-
-    public function show(int $id)
-    {
-
-        $serie = Serie::find($id);
-        if (is_null($serie)) {
-            //204 = Não tem conteúdo
-            return response()->json('', 204);
-        }
-        return response()->json($serie, 200);
-    }
-
-    public function update(int $id, Request $request)
-    {
-        $serie = Serie::find($id);
-        if (is_null($serie)) {
-            return response()->json([
-                'erro' => 'Recurso não encontrado'
-            ], 404);
-        }
-        $serie->fill($request->all());
-        $serie->save();
-        return $serie;
-    }
-
-    public function destroy(int $id)
-    {
-        $qtdRecursosRemovidos = Serie::destroy($id);
-        if ($qtdRecursosRemovidos === 0) {
-            return response()->json([
-                'erro' => 'Recurso não encontrado'
-            ], 404);
-        }
-        return response()->json('', 204);
+        $this->classe = Serie::class;
     }
 }
