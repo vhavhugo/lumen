@@ -8,6 +8,8 @@ class Episodio extends Model
 {
     public $timestamps = false;
     protected $fillable = ['temporada', 'numero', 'assistido', 'serie_id'];
+    protected $perPage = 3;
+    protected $appends = ['links'];
 
     public function serie()
     {
@@ -22,5 +24,12 @@ class Episodio extends Model
     public function setNomeAttribute($nome)
     {
         $this->attributes['nome'] = strtoupper($nome);
+    }
+
+    public function getLinksAttribute($links): array
+    {
+        return [
+            'serie' => '/api/series/' . $this->serie_id
+        ];
     }
 }
