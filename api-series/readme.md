@@ -1,3 +1,7 @@
+# stateless e jwt
+jwt.io
+
+
 # inserir tabela
 
 php artisan make:migration criar_tabela_series --create=series
