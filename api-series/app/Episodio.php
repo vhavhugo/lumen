@@ -26,7 +26,7 @@ class Episodio extends Model
         $this->attributes['nome'] = strtoupper($nome);
     }
 
-    public function getLinksAttribute($links): array
+    public function getLinksAttribute(): array
     {
         return [
             'serie' => '/api/series/' . $this->serie_id
