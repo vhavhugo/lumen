@@ -33,4 +33,5 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->put('{id}', "EpisodiosController@update");
         $router->delete('{id}','EpisodiosController@destroy');
     });
+    $router->post('/api/login', 'TokenController@gerarToken');
 });

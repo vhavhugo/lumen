@@ -7,6 +7,7 @@ use Firebase\JWT\JWT;
 use Illuminate\Auth\GenericUser;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Request;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
             }
             $authorizationHeader = $request->header('Autorization');
             $token = str_replace('Bearer', '', $authorizationHeader);
-            $dadosAutenticacao = JWT::decode($token, '', ['HS256']);
+            $dadosAutenticacao = JWT::decode($token, env('JWT_KEY'), ['HS256']);
 
             return new GenericUser(['email' => $dadosAutenticacao]);
             //return User::where('email', $dadosAutenticacao['email'])->first();

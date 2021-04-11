@@ -1,6 +1,28 @@
 # stateless e jwt
 jwt.io
 
+# configurando pra token
+bootstrap/app.php
+
+descomentar:
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
+
+$app->register(App\Providers\AuthServiceProvider::class);
+
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+], function ($router) {
+    require __DIR__ . '/../routes/web.php';
+});
+
+return $app;
+
+routes/web.php
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+
+
 
 # inserir tabela
 
